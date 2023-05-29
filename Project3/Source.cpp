@@ -24,20 +24,25 @@ public:
 		reachSpeedWithOutRefuel = r;
 	
 	}
+	
+	friend ostream& operator<<(ostream& os, const spaceShip& ss) { 
+		os << ss.name <<'('<< ss.type <<" type " << ss.speed <<" speed " << ss.Vfuel <<" fuel " << ss.reachSpeedWithOutRefuel <<" not refuel" << ')' << endl;
+		return os;
 
-
+	}
+	
 };
 
 void displaymenu() {
 	cout <<endl <<"choose actions (1-6)" << endl;
-	cout << "1: set space ship name" << endl << "2: set type of ship" << endl << "3: set speed your ship" << endl << "4: set value of fuel ship" << endl << "5 show your ship stat" << endl << "6: next ship" << endl <<"7: previos ship"<< endl << "8: show all ships" << endl << "9: exit"<< endl;
+	cout << "1: set space ship name" << endl << "2: set type of ship" << endl << "3: set speed your ship" << endl << "4: set value of fuel ship" << endl << "5 show your ship stat" << endl << "6: new ship" << endl  << "7: show all ships" << endl << "8: delete stat" << endl << "9: exit"<< endl;
 	cout << " your action set -> ";
 }
 
 int main(spaceShip) {
 
 	cout << "program of spaceships"<<endl;
-
+	int deleteUserSet = 0;
 	int VectorCount=0;
 	bool typeCheck = 0;
 	int userNumberSet = 0;
@@ -48,7 +53,7 @@ int main(spaceShip) {
 	string userNameSet = "Null";
 	string userPreset = "Null";
 
-	spaceShip *ship = new spaceShip("", ' ', 0, 0, 0);
+	spaceShip *ship = new spaceShip(" ",' ', 0, 0, 0);
 
 	vector<spaceShip> userSpaceShips;
 	
@@ -185,24 +190,85 @@ int main(spaceShip) {
 		}
 		case 6: {
 
-			userSpaceShips[0] = *ship;
+			userSpaceShips.push_back(spaceShip(ship->name, ship->type, ship->speed, ship->Vfuel, ship->reachSpeedWithOutRefuel));
 			VectorCount++;
+			ship->name = "";
+			ship->type = ' ';
+			ship->speed = 0;
+			ship->Vfuel = 0;
+			ship->reachSpeedWithOutRefuel = 0;
 			break;
 		}
+
 		case 7: {
-		
-			VectorCount--;
+
+			userSpaceShips.push_back(spaceShip(ship->name, ship->type, ship->speed, ship->Vfuel, ship->reachSpeedWithOutRefuel));
+			for (int i = 0; i < userSpaceShips.size();i++) {
+
+				cout << userSpaceShips[i] << endl;
+				i++;
+				
+			}
 			break;
 		}
 
 		case 8: {
 		
-			userSpaceShips.push_back(spaceShip(ship->name,ship->type,ship->speed,ship->Vfuel,ship->reachSpeedWithOutRefuel));
+			do
+			{
+				cout << "what you want delete?"<< endl;
+				cout << "1: name" << endl << "2: type" << endl << "3: speed" << endl << "4: fuel" << endl << "5: exit" << endl;
+				cout << "set number action -> "<< endl;
+				cin >> deleteUserSet;
 
+				switch (deleteUserSet)
+				{
+				case 1: {
+					userNameSet = "";
+					ship->name = "";
+						cout << "done"<< endl;
+						break;
+				}
+				case 2: {
+					userTypeSet = ' ';
+					ship->type = ' ';
+					cout << "done" << endl;
+					break;;
+				}
+				case 3: {
+					userSpeedSet = 0;
+					ship->speed = 0;
+					cout << "done" << endl;
+					break;
+				}
+				case 4: {
+					userVfuelSet = 0;
+					ship->Vfuel = 0;
+					userReachSpeedWithOutRefuelSet = 0;
+					ship->reachSpeedWithOutRefuel = 0;
+					cout << "done" << endl;
+					break;
+				}
+				case 5: {
+				
+					cout << "removed done" << endl;
+					break;
+				}
+				default: {
+					cout << "error use number of action"<< endl;
+					break;
+				}
+
+				}
+
+
+			} while (deleteUserSet !=5);
+				break;
+		}
 
 			
-			break;
-		}
+			
+		
 
 		case 9: {
 		
