@@ -25,6 +25,10 @@ public:
 	
 	}
 
+	friend ostream& operator<<(ostream& os, const spaceShip& ss) {
+		os << ss.name <<'('<< ss.type <<" | "<< ss.speed << ' | '<< ss.Vfuel << ' | ' << ss.reachSpeedWithOutRefuel << ')' << endl;
+		return os;
+	}
 
 };
 
@@ -48,7 +52,7 @@ int main(spaceShip) {
 	string userNameSet = "Null";
 	string userPreset = "Null";
 
-	spaceShip *ship = new spaceShip("", ' ', 0, 0, 0);
+	spaceShip *ship = new spaceShip(" ",' ', 0, 0, 0);
 
 	vector<spaceShip> userSpaceShips;
 	
@@ -185,7 +189,7 @@ int main(spaceShip) {
 		}
 		case 6: {
 
-			userSpaceShips[0] = *ship;
+			userSpaceShips.push_back(spaceShip(ship->name, ship->type, ship->speed, ship->Vfuel, ship->reachSpeedWithOutRefuel));
 			VectorCount++;
 			break;
 		}
@@ -198,7 +202,7 @@ int main(spaceShip) {
 		case 8: {
 		
 			userSpaceShips.push_back(spaceShip(ship->name,ship->type,ship->speed,ship->Vfuel,ship->reachSpeedWithOutRefuel));
-
+			cout << userSpaceShips[0];
 
 			
 			break;
